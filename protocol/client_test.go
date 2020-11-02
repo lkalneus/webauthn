@@ -17,7 +17,7 @@ func setupCollectedClientData(challenge []byte) *CollectedClientData {
 }
 
 func TestVerifyCollectedClientData(t *testing.T) {
-	newChallenge, err := CreateChallenge()
+	newChallenge, err := CreateChallenge("{\"asset\":\"USD\",\"amount\":74,\"action\":\"buy\"}")
 	if err != nil {
 		t.Fatalf("error creating challenge: %s", err)
 	}
@@ -33,12 +33,12 @@ func TestVerifyCollectedClientData(t *testing.T) {
 }
 
 func TestVerifyCollectedClientDataIncorrectChallenge(t *testing.T) {
-	newChallenge, err := CreateChallenge()
+	newChallenge, err := CreateChallenge("{\"asset\":\"USD\",\"amount\":74,\"action\":\"buy\"}")
 	if err != nil {
 		t.Fatalf("error creating challenge: %s", err)
 	}
 	ccd := setupCollectedClientData(newChallenge)
-	bogusChallenge, err := CreateChallenge()
+	bogusChallenge, err := CreateChallenge("{\"asset\":\"USD\",\"amount\":74,\"action\":\"buy\"}")
 	if err != nil {
 		t.Fatalf("error creating challenge: %s", err)
 	}

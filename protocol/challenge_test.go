@@ -20,7 +20,7 @@ func TestCreateChallenge(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := CreateChallenge()
+			got, err := CreateChallenge("{\"asset\":\"USD\",\"amount\":74,\"action\":\"buy\"}")
 			if (err != nil) != tt.wantErr {
 				t.Errorf("CreateChallenge() error = %v, wantErr %v", err, tt.wantErr)
 				return
@@ -34,7 +34,7 @@ func TestCreateChallenge(t *testing.T) {
 }
 
 func TestChallenge_String(t *testing.T) {
-	newChallenge, err := CreateChallenge()
+	newChallenge, err := CreateChallenge("{\"asset\":\"USD\",\"amount\":74,\"action\":\"buy\"}")
 	if err != nil {
 		t.Errorf("CreateChallenge() error = %v", err)
 		return

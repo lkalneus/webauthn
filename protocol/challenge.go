@@ -13,12 +13,14 @@ type Challenge URLEncodedBase64
 
 // Create a new challenge to be sent to the authenticator. The spec recommends using
 // at least 16 bytes with 100 bits of entropy. We use 32 bytes.
-func CreateChallenge() (Challenge, error) {
-	challenge := make([]byte, ChallengeLength)
-	_, err := rand.Read(challenge)
+func CreateChallenge(payload string) (Challenge, error) {
+	payloadInBytes := []byte(payload)
+	tmp := make([]byte, ChallengeLength)
+	_, err := rand.Read(tmp)
 	if err != nil {
 		return nil, err
 	}
+	challenge := append(payloadInBytes, tmp...)
 	return challenge, nil
 }
 
