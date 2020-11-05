@@ -5,8 +5,8 @@ import (
 	"encoding/base64"
 	"net/http"
 
-	"github.com/duo-labs/webauthn/protocol"
-	"github.com/duo-labs/webauthn/protocol/webauthncose"
+	"github.com/lkalneus/webauthn/protocol"
+	"github.com/lkalneus/webauthn/protocol/webauthncose"
 )
 
 // BEGIN REGISTRATION
@@ -16,8 +16,9 @@ import (
 type RegistrationOption func(*protocol.PublicKeyCredentialCreationOptions)
 
 // Generate a new set of registration data to be sent to the client and authenticator.
-func (webauthn *WebAuthn) BeginRegistration(user User, opts ...RegistrationOption) (*protocol.CredentialCreation, *SessionData, error) {
-	challenge, err := protocol.CreateChallenge()
+func (webauthn *WebAuthn) BeginRegistration(user User, payload string, opts ...RegistrationOption) (*protocol.CredentialCreation, *SessionData, error) {
+
+	challenge, err := protocol.CreateChallenge(payload)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -80,6 +81,13 @@ func WithAuthenticatorSelection(authenticatorSelection protocol.AuthenticatorSel
 		cco.AuthenticatorSelection = authenticatorSelection
 	}
 }
+
+// Provide non-default challenge.
+// func WithPayload(payload string) RegistrationOption {
+// 	return func(cco *protocol.PublicKeyCredentialCreationOptions) {
+// 		cco.Payload = payload
+// 	}
+// }
 
 // Provide non-default parameters regarding credentials to exclude from retrieval.
 func WithExclusions(excludeList []protocol.CredentialDescriptor) RegistrationOption {

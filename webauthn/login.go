@@ -5,7 +5,7 @@ import (
 	"encoding/base64"
 	"net/http"
 
-	"github.com/duo-labs/webauthn/protocol"
+	"github.com/lkalneus/webauthn/protocol"
 )
 
 // BEGIN REGISTRATION
@@ -21,8 +21,8 @@ type LoginOption func(*protocol.PublicKeyCredentialRequestOptions)
 // additional LoginOption parameters. This function also returns sessionData, that must be stored by the
 // RP in a secure manner and then provided to the FinishLogin function. This data helps us verify the
 // ownership of the credential being retreived.
-func (webauthn *WebAuthn) BeginLogin(user User, opts ...LoginOption) (*protocol.CredentialAssertion, *SessionData, error) {
-	challenge, err := protocol.CreateChallenge()
+func (webauthn *WebAuthn) BeginLogin(user User, payload string, opts ...LoginOption) (*protocol.CredentialAssertion, *SessionData, error) {
+	challenge, err := protocol.CreateChallenge(payload)
 	if err != nil {
 		return nil, nil, err
 	}

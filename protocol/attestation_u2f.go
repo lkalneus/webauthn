@@ -6,7 +6,7 @@ import (
 	"crypto/elliptic"
 	"crypto/x509"
 
-	"github.com/duo-labs/webauthn/protocol/webauthncose"
+	"github.com/lkalneus/webauthn/protocol/webauthncose"
 	"github.com/fxamacker/cbor/v2"
 )
 

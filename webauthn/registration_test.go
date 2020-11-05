@@ -3,7 +3,7 @@ package webauthn
 import (
 	"testing"
 
-	"github.com/duo-labs/webauthn/protocol"
+	"github.com/lkalneus/webauthn/protocol"
 )
 
 
